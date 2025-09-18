@@ -1,0 +1,8 @@
+streamlit>=1.18
+scikit-learn
+joblib
+pandas
+numpy
+nltk
+openai
+kaggle    # opcional, solo si usarás fetch_kaggle.py
