@@ -82,7 +82,7 @@ if submitted:
                         f"NOTICIA:\n{noticia}\n\nRESPUESTA:"
                     )
                     response = openai.ChatCompletion.create(
-                        model="gpt-3.5-turbo",
+                        model="gpt-5-nano",
                         messages=[
                             {"role": "system", "content": "Eres un experto en verificación de información y periodismo."},
                             {"role": "user", "content": prompt}
