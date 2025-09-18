@@ -3,7 +3,7 @@ import streamlit as st
 import joblib
 import os
 import time
-import openai
+from openai import OpenAI
 from utils import limpiar_texto, safe_load_env_var
 
 # ---------------------------
@@ -73,16 +73,16 @@ if submitted:
             openai_key = safe_load_env_var("OPENAI_API_KEY")
             resumen = None
             if openai_key:
-                openai.api_key = openai_key
+                client = OpenAI(api_key=openai_key)
                 try:
-                    # Llamada a OpenAI ChatCompletion
+                    # Llamada a OpenAI ChatCompletion (nueva sintaxis)
                     prompt = (
                         "Resume la siguiente noticia en 2-3 frases en español. "
                         "Luego, en 1 frase, indica si observas señales de manipulación (ej: falta de fuentes, lenguaje emocional, afirmaciones extraordinarias) y por qué.\n\n"
                         f"NOTICIA:\n{noticia}\n\nRESPUESTA:"
                     )
-                    response = openai.ChatCompletion.create(
-                        model="gpt-3.5-turbo",
+                    response = client.chat.completions.create(
+                        model="gpt-5-nano",  # modelo pequeño y económico
                         messages=[
                             {"role": "system", "content": "Eres un experto en verificación de información y periodismo."},
                             {"role": "user", "content": prompt}
@@ -90,7 +90,7 @@ if submitted:
                         max_tokens=200,
                         temperature=0.3,
                     )
-                    resumen = response["choices"][0]["message"]["content"].strip()
+                    resumen = response.choices[0].message.content.strip()
                 except Exception as e:
                     resumen = f"⚠️ Error generando resumen: {e}"
             else:
