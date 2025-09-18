@@ -86,9 +86,7 @@ if submitted:
                         messages=[
                             {"role": "system", "content": "Eres un experto en verificación de información y periodismo."},
                             {"role": "user", "content": prompt}
-                        ],
-                        max_tokens=200,
-                        temperature=0.3,
+                        ]
                     )
                     resumen = response.choices[0].message.content.strip()
                 except Exception as e:
