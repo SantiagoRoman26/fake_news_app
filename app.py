@@ -95,7 +95,7 @@ if submitted:
                 resumen = "No hay API key de OpenAI configurada. Para generar resumen activa OPENAI_API_KEY."
 
             # 3) Mostrar resumen
-            st.subheader("📝 Resumen inteligente (LLM)")
+            st.subheader("📝 Resumen inteligente")
             st.info(resumen)
 
             # 4) Mostrar texto original (opcional)
